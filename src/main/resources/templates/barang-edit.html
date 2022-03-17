@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${add} ? 'Create a Barang' : 'Edit a Barang'" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1 th:text="${add} ? 'Create a Barang:' : 'Edit a Barang:'" />
+<a th:href="@{/v1/view/barang/list}">Back to Barang List</a>
+<br/><br/>
+<form th:action="${add} ? @{/v1/view/barang/add} : @{/v1/view/barang/{barangId}/edit(barangId=${barang.id})}"
+      th:object="${barang}" method="POST">
+    <table border="0">
+        <tr>
+            <td>Nama</td>
+            <td>:</td>
+            <td><input type="text" th:field="*{nama}" /></td>
+        </tr>
+        <tr>
+            <td>Stok</td>
+            <td>:</td>
+            <td><input type="text" th:field="*{stok}" /></td>
+        </tr>
+        <tr>
+            <td>Satuan</td>
+            <td>:</td>
+            <td><input type="text" th:field="*{satuan}" /></td>
+        </tr>
+        <tr>
+            <td>Harga</td>
+            <td>:</td>
+            <td><input type="text" th:field="*{harga}"/></td>
+        </tr>
+    </table>
+    <input type="submit" th:value="${add} ? 'Create' : 'Update'" />
+</form>
+
+<br/>
+<!-- Check if errorMessage is not null and not empty -->
+<div th:if="${errorMessage}" th:utext="${errorMessage}" class="error" />
+</body>
+</html>
